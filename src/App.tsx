@@ -3,12 +3,19 @@ import { DateRangePicker } from 'rsuite';
 import './styles.css';
 
 const App = () => {
-  const [dateRange, setDateRange] = useState([null, null]);
+  const [dateRange, setDateRange] = useState<Array<Date>|[null, null]>([null, null]);
   const [count, setCount] = useState(0);
 
-  const handleDateChange = (value) => {
-    setDateRange(value);
-    console.log('Selected Date Range:', value);
+  const handleDateChange = (newDateRange: Array<Date>) => {
+    let beginDate = null;
+    let endDate = null;
+    if (newDateRange && newDateRange[0] && newDateRange[1]) {
+      beginDate = new Date(newDateRange[0].setHours(0,0,0,0)) 
+      endDate = new Date(newDateRange[1].setHours(23,59,59,999))
+      setDateRange([beginDate, endDate]);
+    }else{
+      setDateRange([null, null])
+    }
   };
 
   // const handleDateChange = (newDateRange: Date[] | null) => {
