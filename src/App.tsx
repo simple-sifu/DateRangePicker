@@ -3,19 +3,15 @@ import { DateRangePicker } from 'rsuite';
 import './styles.css';
 
 const App = () => {
-  const [dateRange, setDateRange] = useState<Array<Date>|[null, null]>([null, null]);
+  const [dateRange, setDateRange] = useState<Array<Date | null>>([null, null]);
   const [count, setCount] = useState(0);
 
   const handleDateChange = (newDateRange: Array<Date>) => {
-    let beginDate = null;
-    let endDate = null;
-    if (newDateRange && newDateRange[0] && newDateRange[1]) {
-      beginDate = new Date(newDateRange[0].setHours(0,0,0,0)) 
-      endDate = new Date(newDateRange[1].setHours(23,59,59,999))
+
+      const beginDate = new Date(newDateRange[0].setHours(0,0,0,0)) 
+      const endDate = new Date(newDateRange[1].setHours(23,59,59,999))
       setDateRange([beginDate, endDate]);
-    }else{
-      setDateRange([null, null])
-    }
+
   };
 
   // const handleDateChange = (newDateRange: Date[] | null) => {
@@ -29,8 +25,10 @@ const App = () => {
   //   setDateRange(() => (beginDate ? [beginDate, endDate] : [null, null]));
   // };
 
-  const currentMonth = new Date('2024-01-05T17:41:53');
-  const prevMonth = new Date('2023-07-14T17:10:25');
+  const currentMonth0 = new Date('2024-01-05T17:41:53');
+  const prevMonth0 = new Date('2023-07-14T17:10:25');
+  const prevMonth = new Date(prevMonth0.setHours(0,0,0,0));
+  const currentMonth = new Date(currentMonth0.setHours(23,59,59,999));
 
   // Function to disable dates
   // const shouldDisableDate = (date: Date) => {
